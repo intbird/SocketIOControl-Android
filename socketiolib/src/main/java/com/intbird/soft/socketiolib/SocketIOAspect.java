@@ -6,6 +6,10 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 
+/**
+ * aspect your own method,such as Logger, LifeCycle...
+ * configs in app 'build.gradle'
+ */
 @Aspect
 public class SocketIOAspect {
 

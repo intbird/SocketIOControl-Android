@@ -10,6 +10,11 @@ import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * send all messages by service
+ * activity only show service status and message
+ * mostly activity is not to be used.
+ */
 public class SocketIOSender {
 
     private static WeakReference<Context> context;

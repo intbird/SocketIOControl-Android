@@ -18,9 +18,9 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
 
-    private static final String url_remote = "socketio://intbird.world:3000";
-    private static final String url_local = "socketio://10.0.60.128";
-    private static final String url = url_local;
+    private static final String url_remote = "socketio://intbird.world:996";
+    private static final String url_local = "socketio://192.168.2.200:8080";
+    private static final String url = url_remote;
 
 
     @Override
