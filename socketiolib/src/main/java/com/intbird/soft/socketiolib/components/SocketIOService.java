@@ -8,6 +8,8 @@ import android.os.Messenger;
 import android.os.RemoteException;
 import android.util.Log;
 
+import com.intbird.soft.socketiolib.cnative.Logger;
+
 import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
@@ -62,7 +64,7 @@ public class SocketIOService extends Service implements SocketIOHandlerService.M
         try {
             socket = IO.socket(ipAddress);
         } catch (Exception e) {
-            Log.d(TAG, Log.getStackTraceString(e));
+            Logger.INSTANCE.d(TAG, Log.getStackTraceString(e));
         }
 
         if (null == socket) {
@@ -116,6 +118,7 @@ public class SocketIOService extends Service implements SocketIOHandlerService.M
     private void showMessage(String message) {
         Message msg = Message.obtain(null, SocketIOHandlerFlag.MSG_SHOW_SOCKET_MESSAGE, message);
         try {
+            Logger.INSTANCE.d(TAG, message);
             if (null != messenger) {
                 messenger.send(msg);
             }

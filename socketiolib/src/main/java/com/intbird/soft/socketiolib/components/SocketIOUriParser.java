@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.intbird.soft.socketiolib.SocketIOSender;
+import com.intbird.soft.socketiolib.cnative.Logger;
 import com.intbird.soft.socketiolib.plugin.screenshot.ScreenShotActivity;
 import com.intbird.soft.socketiolib.utils.Utils;
 
@@ -36,17 +37,17 @@ public class SocketIOUriParser {
             if (!TextUtils.isEmpty(socketIOMessageBody.uri)) {
                 jsonObject.put("uri", socketIOMessageBody.uri);
             }
-            Log.d(TAG, "sendMessage: " + jsonObject.toString());
+            Logger.INSTANCE.d(TAG, "sendMessage: " + jsonObject.toString());
             return jsonObject;
         } catch (Exception ex) {
-            Log.d(TAG, ex.getMessage());
+            Logger.INSTANCE.d(TAG, ex.getMessage());
         }
         return new JSONObject();
     }
 
     public String valShowMessage(Object... objects) {
         Object object = null != objects && objects.length > 0 ? objects[0] : "";
-        Log.d(TAG, "parseMessage: " + object.toString());
+        Logger.INSTANCE.d(TAG, "parseMessage: " + object.toString());
         try {
             try {
                 SocketIOMessageBody socketIOMessageBody = new SocketIOMessageBody();
@@ -69,16 +70,16 @@ public class SocketIOUriParser {
                     try {
                         return parserRemoteUri(socketIOMessageBody.uri, socketIOMessageBody.identifyId, showMessage);
                     } catch (Exception ex) {
-                        Log.d(TAG, ex.getMessage());
+                        Logger.INSTANCE.d(TAG, ex.getMessage());
                         return EMPTY;
                     }
                 }
             } catch (Exception ex) {
-                Log.d(TAG, ex.getMessage());
+                Logger.INSTANCE.d(TAG, ex.getMessage());
             }
             return object.toString();
         } catch (Exception ex) {
-            Log.d(TAG, ex.getMessage());
+            Logger.INSTANCE.d(TAG, ex.getMessage());
         }
         return EMPTY;
     }
@@ -111,7 +112,7 @@ public class SocketIOUriParser {
                 }
                 return "success:" + path;
             default:
-                Log.d(TAG, path + " not found");
+                Logger.INSTANCE.d(TAG, path + " not found");
                 return "";
         }
     }

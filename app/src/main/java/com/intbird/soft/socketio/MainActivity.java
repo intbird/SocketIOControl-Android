@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.intbird.soft.socketiolib.cnative.Logger;
 import com.intbird.soft.socketiolib.components.SocketIOActivity;
 import com.intbird.soft.socketiolib.components.SocketIOUriParser;
 
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("url", Uri.parse(codeResult).buildUpon().scheme("http").build().toString());
                 context.startActivity(intent);
             } catch (Exception e) {
-                Log.e(TAG, "onScanQRCodeSuccess: " + Log.getStackTraceString(e));
+                Logger.INSTANCE.e(TAG, "onScanQRCodeSuccess: " + Log.getStackTraceString(e));
             }
         }
     }

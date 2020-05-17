@@ -24,6 +24,7 @@ import android.view.Display;
 import android.view.WindowManager;
 
 import com.intbird.soft.socketiolib.SocketIOSender;
+import com.intbird.soft.socketiolib.cnative.Logger;
 import com.intbird.soft.socketiolib.components.SocketIOMessageBody;
 import com.intbird.soft.socketiolib.components.SocketIOUriParser;
 
@@ -237,7 +238,7 @@ public class Shotter {
             }
 
             if (mOnShotListener != null) {
-                Log.d("Shotter path:", mLocalUrl + "");
+                Logger.INSTANCE.d("Shotter path:", mLocalUrl + "");
                 mOnShotListener.onFinish();
             }
 

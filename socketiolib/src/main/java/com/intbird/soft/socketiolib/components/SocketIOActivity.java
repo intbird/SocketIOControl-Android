@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.intbird.soft.socketiolib.R;
 import com.intbird.soft.socketiolib.SocketIOSender;
+import com.intbird.soft.socketiolib.cnative.Logger;
 
 
 public class SocketIOActivity extends Activity implements View.OnClickListener, SocketIOHandlerActivity.MessageCallback {
@@ -107,7 +108,7 @@ public class SocketIOActivity extends Activity implements View.OnClickListener, 
     private ServiceConnection connection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            Log.d(TAG, "onServiceConnected");
+            Logger.INSTANCE.d(TAG, "onServiceConnected");
             serviceMessage = new Messenger(service);
             sendMessage(SocketIOHandlerFlag.MSG_CLIENT_REGISTER, new SocketIOMessageBody(identy.getText().toString(), "onServiceConnected"));
             socketIOBinderConnect = true;
@@ -117,7 +118,7 @@ public class SocketIOActivity extends Activity implements View.OnClickListener, 
         public void onServiceDisconnected(ComponentName name) {
             sendMessage(SocketIOHandlerFlag.MSG_CLIENT_UNREGISTER, new SocketIOMessageBody(identy.getText().toString(), "onServiceDisconnected"));
             socketIOBinderConnect = false;
-            Log.d(TAG, "onServiceDisconnected");
+            Logger.INSTANCE.d(TAG, "onServiceDisconnected");
         }
     };
 
