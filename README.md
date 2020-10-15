@@ -2,7 +2,7 @@
 I will develop more functions if I have time   
 
 1. install released apk in you phone: [release](https://github.com/intbird/SocketIOControl-Android/releases)
-2. start app and modify server url : [https://intbird.world](https://intbird.world) at first Activity
+2. start app and modify server url : [https://intbird.net](https://intbird.net) at first Activity
 3. click 'start server' connect to the server
 
 
@@ -23,13 +23,13 @@ here is socketio server and web page.
 ------
 
 # 1. website:
- https://intbird.world/
+ https://intbird.net/
 
 ## 2. socket web url :
-   https://intbird.world/#/socketio
+   https://intbird.net/#/socketio
 
 ## 3. socket server path:
-   https://intbird.world:996
+   https://intbird.net:996
 
 # 4. repo migrate:
 this repo is `no longer update` at time: 2020-05-15
