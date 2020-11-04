@@ -14,7 +14,7 @@ import org.json.JSONObject;
 
 public class SocketIOUriParser {
 
-    public static final String Schema = "socketio"; // socketio://remote/xxx
+    public static final String Schema = "socketio";
 
     public static final String Remote = "remote";
     public static final String Client = "client";

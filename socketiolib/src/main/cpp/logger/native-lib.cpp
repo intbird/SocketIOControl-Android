@@ -15,7 +15,8 @@ extern "C" {
     Java_com_intbird_soft_socketiolib_cnative_Logger_d(JNIEnv *env, jobject thiz, jstring jtag,
                                                        jstring jMessage) {
         const char *tag = env->GetStringUTFChars(jtag, NULL);
-        LOGD(tag);
+        const char *message = env->GetStringUTFChars(jMessage, NULL);
+        LOGD("%s : %s", tag, message);
     }
 
     extern "C"
@@ -23,7 +24,8 @@ extern "C" {
     Java_com_intbird_soft_socketiolib_cnative_Logger_e(JNIEnv *env, jobject thiz, jstring jtag,
                                                        jstring jMessage) {
         const char *tag = env->GetStringUTFChars(jtag, NULL);
-        LOGE(tag);
+        const char *message = env->GetStringUTFChars(jMessage, NULL);
+        LOGD("%s : %s", tag, message);
     }
 }
 

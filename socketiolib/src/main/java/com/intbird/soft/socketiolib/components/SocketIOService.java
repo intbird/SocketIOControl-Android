@@ -6,13 +6,28 @@ import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.intbird.soft.socketiolib.cnative.Logger;
 
+import java.io.IOException;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+
 import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class SocketIOService extends Service implements SocketIOHandlerService.MessageCallback {
 
@@ -58,11 +73,17 @@ public class SocketIOService extends Service implements SocketIOHandlerService.M
     }
 
     public void connect(String ipAddress) {
-        if (connected) {
+        if (connected || TextUtils.isEmpty(ipAddress)) {
             return;
         }
+
         try {
-            socket = IO.socket(ipAddress);
+            Logger.INSTANCE.d(TAG, ipAddress);
+            IO.Options options = ipAddress.startsWith("https")
+                    ? SSLOpts(ipAddress)
+                    : new IO.Options();
+
+            socket = IO.socket(ipAddress, options);
         } catch (Exception e) {
             Logger.INSTANCE.d(TAG, Log.getStackTraceString(e));
         }
@@ -85,6 +106,60 @@ public class SocketIOService extends Service implements SocketIOHandlerService.M
             socket.disconnect();
             connected = false;
         }
+    }
+
+    /**
+     * https://github.com/socketio/socket.io-client-java
+     *
+     * @return sslOpts
+     */
+    private IO.Options SSLOpts(String url) throws Exception {
+
+        HostnameVerifier hostnameVerifier = new HostnameVerifier() {
+            @Override
+            public boolean verify(String hostname, SSLSession session) {
+                //HostnameVerifier hv = HttpsURLConnection.getDefaultHostnameVerifier();
+                return true;
+            }
+        };
+
+        TrustManager[] trustManagers = new TrustManager[]{new X509TrustManager() {
+            @Override
+            public void checkClientTrusted(java.security.cert.X509Certificate[] chain, String authType) {
+
+            }
+
+            @Override
+            public void checkServerTrusted(java.security.cert.X509Certificate[] chain, String authType) {
+
+            }
+
+            @Override
+            public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+                return new java.security.cert.X509Certificate[0];
+            }
+        }};
+
+        X509TrustManager trustManager = (X509TrustManager) trustManagers[0];
+
+        SSLContext sslContext = SSLContext.getInstance("TLS");
+        sslContext.init(null, trustManagers, null);
+        SSLSocketFactory sslSocketFactory = sslContext.getSocketFactory();
+
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .sslSocketFactory(sslSocketFactory, trustManager)
+                .hostnameVerifier(hostnameVerifier)
+                .build();
+        // default settings for all sockets
+//        IO.setDefaultOkHttpWebSocketFactory(okHttpClient);
+//        IO.setDefaultOkHttpCallFactory(okHttpClient);
+
+        // set as an option
+        IO.Options opts = new IO.Options();
+        opts.path = "/socket/socket.io/";
+        opts.callFactory = okHttpClient;
+        opts.webSocketFactory = okHttpClient;
+        return opts;
     }
 
     private Emitter.Listener onConnectListener = new Emitter.Listener() {

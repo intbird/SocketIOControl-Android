@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
 
-    private static final String url_remote = "socketio://intbird.net:996";
+    private static final String url_remote = "socketio://intbird.net/#/socket.io/";
     private static final String url_local = "socketio://192.168.2.200:8080";
     private static final String url = url_remote;
 
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         TextView textView = findViewById(R.id.label);
-        textView.setText("扫码功能暂时未做\n确保电脑已经打开" + url + " 网址");
+        textView.setText("扫码功能暂时未做\n确保电脑已经打开" + getHttpsUrl(url) + " 网址");
 
         findViewById(R.id.button_yes).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,11 +56,15 @@ public class MainActivity extends AppCompatActivity {
         if (codeResult.startsWith(SocketIOUriParser.Schema)) {
             try {
                 Intent intent = new Intent(context, SocketIOActivity.class);
-                intent.putExtra("url", Uri.parse(codeResult).buildUpon().scheme("http").build().toString());
+                intent.putExtra("url", getHttpsUrl(codeResult));
                 context.startActivity(intent);
             } catch (Exception e) {
                 Logger.INSTANCE.e(TAG, "onScanQRCodeSuccess: " + Log.getStackTraceString(e));
             }
         }
+    }
+
+    private String getHttpsUrl(String url) {
+        return Uri.parse(url).buildUpon().scheme("https").build().toString();
     }
 }

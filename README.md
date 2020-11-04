@@ -1,24 +1,13 @@
-# socketiocontrol-android
+# socket.io android & vue enable https client demo
+
 I will develop more functions if I have time   
 
-1. install released apk in you phone: [release](https://github.com/intbird/SocketIOControl-Android/releases)
-2. start app and modify server url : [https://intbird.net](https://intbird.net) at first Activity
-3. click 'start server' connect to the server
+1. install released apk in you phone: [release](https://github.com/intbird/SocketIOControl-Android/releases)  
+2. open the website(chrome) : [https://intbird.net/#/socket.io/](https://intbird.net/#/socket.io/)
+3. click app button 'start server' connect to the server
 
-
--------------
-here is socketio server and web page.
-
-# [socketiocontrol-server](https://github.com/intbird/SocketIOControl-Server)
-
-> this repo is `no longer update` at time: 2020-05-15
-> and new repo is here:
-> [https://github.com/intbird/intbird](https://github.com/intbird/intbird)
-
->
->`已升级为https,证书不会上传`
->here will tell you how to update your website use https:
-[Centos7 letsencrypt ssl 证书](https://blog.csdn.net/intbird/article/details/105159462)
+4. you can see the wss connnection in `charles app`
+![截图](gituser/socket-charles.png)
 
 ------
 
@@ -26,27 +15,13 @@ here is socketio server and web page.
  https://intbird.net/
 
 ## 2. socket web url :
-   https://intbird.net/#/socketio
+   https://intbird.net/#/socket.io/
 
 ## 3. socket server path:
-   https://intbird.net:996
+   https://intbird.net/socket/
 
-# 4. repo migrate:
-this repo is `no longer update` at time: 2020-05-15
-and new repo is here:
-[https://github.com/intbird/intbird](https://github.com/intbird/intbird)
-------
-# run
-#### install dependencies
-npm install
-
-#### start socketio server
-npm run socketio-server
-
-#### serve with hot reload at localhost:8080
-npm run dev
-
-------
+## 4. server github:
+[socketiocontrol-server](https://github.com/intbird/SocketIOControl-Server)
 
 # key function
 ###### 1. phone send message to pc or pc send message to phone

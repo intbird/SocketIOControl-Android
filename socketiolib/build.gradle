@@ -39,6 +39,15 @@ android {
             version "3.10.2"
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }
 
 dependencies {
@@ -54,7 +63,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     implementation 'org.aspectj:aspectjrt:1.8.9'
-    implementation('io.socket:socket.io-client:0.8.3') {
+    implementation('io.socket:socket.io-client:1.0.0') {
         exclude group: 'org.json', module: 'json'
     }
 }
